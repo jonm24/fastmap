@@ -7,8 +7,8 @@
 // example: options = {type: "time"} <-- any object that gets pushed and 
 // has a 'type' field with a value of "time" will get added to fmap's 'type' array 
 function fastMap(obj, opts) {
-    arr = [obj] // array
-    fmap = {} // background map
+    const arr = [obj] // array
+    const fmap = {} // background map
     for (let opt in opts) {
         fmap[opt] = []
     }
