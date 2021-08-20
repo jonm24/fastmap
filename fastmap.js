@@ -6,10 +6,9 @@
 // matching value to map. 
 // example: options = {type: "time"} <-- any object that gets pushed and 
 // has a 'type' field with a value of "time" will get added to fmap's 'type' array 
-// in the background map
 function fastMap(obj, opts) {
-    arr = [obj]
-    fmap = {}
+    arr = [obj] // array
+    fmap = {} // background map
     for (let opt in opts) {
         fmap[opt] = []
     }
