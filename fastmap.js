@@ -28,8 +28,8 @@ function fastMap(obj, opts) {
     }
 }
 // init
-let obj = { name: "", type: ""}
-let opts = { name: "jon", type: "time"}
+let obj = { name: "", type: ""} // initial object
+let opts = { name: "jon", type: "time"} // special fields/values to prep for constant time lookups
 let fm = fastMap(obj, opts)
 
 // do stuff
