@@ -1,4 +1,4 @@
-// fastmap: special data structure that takes in an array 
+// fastmap: special data structure that takes in an array of objects
 // and creates a map in the background for quicker lookups
 // ***
 // feature 1: ability to pass in an options object that creates a map 
@@ -14,17 +14,17 @@ function fastMap(objs, opts) {
     for (let [opt, val] of Object.entries(opts)) { 
         fmap[opt] = arr.filter(obj => obj[opt] === val)
     }
-    
+
     // return object with methods to access arr and fmap
     return {
         view: () => console.log(`array:\n${JSON.stringify(arr)}\n map:\n${JSON.stringify(fmap)}\n`),
         push: (newObj) => {
+            arr.push(newObj)
             for (let [opt, val] of Object.entries(opts)) {
                 if (newObj[opt] && newObj[opt] === val) {
                     fmap[opt].push(newObj)
                 }    
             }
-            arr.push(newObj)
         },
         fastQuery: (field, val) => {    
             return fmap[field]?.length > 0 ? fmap[field] : "not a fast query"
