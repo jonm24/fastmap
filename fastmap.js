@@ -1,4 +1,4 @@
-// fastmap: special data structure that creates an array with an initial object 
+// fastmap: special data structure that takes in an array 
 // and creates a map in the background for quicker lookups
 // ***
 // feature 1: ability to pass in an options object that creates a map 
@@ -6,12 +6,16 @@
 // matching value to map. 
 // example: options = {type: "time"} <-- any object that gets pushed and 
 // has a 'type' field with a value of "time" will get added to fmap's 'type' array 
-function fastMap(obj, opts) {
-    const arr = [obj] // array
+function fastMap(objs, opts) {
+    const arr = [...objs] // array
     const fmap = {} // background map
-    for (let opt in opts) {
-        fmap[opt] = []
+
+    // initial filling of background map
+    for (let [opt, val] of Object.entries(opts)) { 
+        fmap[opt] = arr.filter(obj => obj[opt] === val)
     }
+    
+    // return object with methods to access arr and fmap
     return {
         view: () => console.log(`array:\n${JSON.stringify(arr)}\n map:\n${JSON.stringify(fmap)}\n`),
         push: (newObj) => {
@@ -28,12 +32,10 @@ function fastMap(obj, opts) {
     }
 }
 // init
-let obj = { name: "", type: ""} // initial object
+let objs = [{ name: "", type: ""}, {name: "steve", type: "time"}] // initial object array 
 let opts = { name: "jon", type: "time"} // special fields/values to prep for constant time lookups
-let fm = fastMap(obj, opts)
+let fm = fastMap(objs, opts)
 
-// do stuff
-fm.push({name: "jon", type: "time"})
+// print array and map, then do a fast query
 fm.view()
-let query = fm.fastQuery('type', 'time')
-console.log("query: ", query)
+console.log("query: ", fm.fastQuery('type', 'time'))
