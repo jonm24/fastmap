@@ -23,12 +23,8 @@ function fastMap(obj, opts) {
             }
             arr.push(newObj)
         },
-        fastQuery: (field, val) => {
-            if (!(field in Object.keys(opts)) && val != opts[field]) {
-                return "not a fast query"
-            } else {
-                return fmap[field]
-            }
+        fastQuery: (field, val) => {    
+            return fmap[field]?.length > 0 ? fmap[field] : "not a fast query"
         }
     }
 }
